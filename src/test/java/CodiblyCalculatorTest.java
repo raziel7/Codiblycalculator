@@ -8,10 +8,10 @@ class CodiblyCalculatorTest {
     @Test
     void testCalculate()
     {
-        String[] arguments = new String[]{"12", "2", "3", "4", "*", "10", "5", "/", "+", "*", "+"};
+        String[] arguments = new String[]{"12", "2", "3", "4", "*", "10", "+", "*", "+"};
         Integer result = StackCalculator.calculateByStack(arguments);
 
-        assertEquals(result, 40);
+        assertEquals(result, 56);
     }
 
     @Test
@@ -21,6 +21,12 @@ class CodiblyCalculatorTest {
         assertNull(StackCalculator.calculateByStack(arguments));
     }
 
+    @Test
+    void testCalculateWithOneNumber()
+    {
+        String[] arguments = new String[]{"2", "*"};
+        assertNull(StackCalculator.calculateByStack(arguments));
+    }
 
     @Test
     void testCalculateEmpty()

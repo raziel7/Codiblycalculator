@@ -4,41 +4,30 @@ class StackCalculator {
 
     static Integer calculateByStack(String[] args) {
         Stack<Integer> numericStack = new Stack<>();
-        Integer result = null;
 
         for (String value : args) {
             if (checkIfNumeric(value)) {
                 numericStack.push(Integer.parseInt(value));
             } else {
                 if (numericStack.empty() || numericStack.size() == 1) {
-                    break;
+                    return null;
                 }
 
                 Integer latter;
                 Integer former;
                 switch (value) {
                     case "+":
-                        result = numericStack.pop() + numericStack.pop();
-                        numericStack.push(result);
+                        numericStack.push(numericStack.pop() + numericStack.pop());
                         break;
 
                     case "-":
                         latter = numericStack.pop();
                         former = numericStack.pop();
-                        result = former - latter;
-                        numericStack.push(result);
+                        numericStack.push(former - latter);
                         break;
 
                     case "*":
-                        result = numericStack.pop() * numericStack.pop();
-                        numericStack.push(result);
-                        break;
-
-                    case "/":
-                        latter = numericStack.pop();
-                        former = numericStack.pop();
-                        result = former / latter;
-                        numericStack.push(result);
+                        numericStack.push(numericStack.pop() * numericStack.pop());
                         break;
 
                     //Pytanie czy chcemy, aby w przypadku podania dziwnych stringow, typu "qwe" w środku wyrażenia
@@ -48,7 +37,12 @@ class StackCalculator {
                 }
             }
         }
-        return result;
+
+        if (!numericStack.empty()) {
+            return numericStack.pop();
+        } else {
+            return null;
+        }
     }
 
     private static boolean checkIfNumeric(String argument) {
